@@ -19,12 +19,27 @@ def exibir_registros():
         registros = list(reader)
     # Condicioinal + list comprehensionzinha básica para checar/imprimir os registros existentes
     if registros:
-        mensagem = '\n'.join([f'Nome: {registro[0]}, Idade: {registro[1]}, Email: {registro[2]}' for registro in registros])
+        mensagem = '\n'.join([f'Nome: {registro[0]} |||| Idade: {registro[1]} |||| Email: {registro[2]}' for registro in registros])
     else:
         # Se não tiver nada registrado, o que estiver abaixo será exibido posterior mente como msg de erro
         mensagem = 'Nenhum registro encontrado.'
     # Chamada da msg de erro apenas com uma "infobox"
-    messagebox.showinfo('Registros', mensagem)
+    #messagebox.showinfo('Registros', mensagem)
+    # Criando uma janela para exibir as informações, anters com messagebox o tamanho deixava feio
+    janela_registros = tk.Toplevel()
+    janela_registros.title("Registros")
+    janela_registros.geometry("500x150")
+    # Não permitir alteração no tamanho da janela com as informações
+    janela_registros.resizable(width= False, height=False)
+    # Pequeno título
+    label_registros = tk.Label(janela_registros, text= "Registros:")
+    label_registros.pack()
+    # Informações de registro
+    label_registros_2 = tk.Label(janela_registros, text= mensagem, justify='left')
+    label_registros_2.pack()
+    # Botão para fechar a janela de exibição de registros
+    botao_fechar_registros = tk.Button(janela_registros, text="Fechar", command=janela_registros.destroy)
+    botao_fechar_registros.pack()
 
 # Função para inserir o registro
 def cadastrar():
@@ -97,42 +112,42 @@ def apagar_registro():
 janela_principal = tk.Tk()
 janela_principal.title('Sistema de Registro')
 # Setando o tamanho da janela principal
-janela_principal.geometry('300x230')
+janela_principal.geometry('350x150')
 # Setando uma cor para janela principal
 janela_principal.configure(background='#98E6C5')
 
 # Label e Entry(text_field) para o nome
 label_nome = tk.Label(janela_principal, text='Nome:')
-label_nome.pack()
+label_nome.place(x=15, y=10)
 label_nome.config(bg='#98E6C5')
 entry_nome = tk.Entry(janela_principal, width=30, justify='center')
-entry_nome.pack()
+entry_nome.place(x=65, y=10)
 
 
 # # Label e Entry(text_field) para a idade
 label_idade = tk.Label(janela_principal, text='Idade:')
-label_idade.pack()
+label_idade.place(x=260, y=10)
 label_idade.config(bg='#98E6C5')
 entry_idade = tk.Entry(janela_principal, width=5, justify='center')
-entry_idade.pack()
+entry_idade.place(x=300, y=10)
 
 # # Label e Entry(text_field) para e-mail
 label_email = tk.Label(janela_principal, text='E-mail:')
-label_email.pack()
+label_email.place(x=15, y=45)
 label_email.config(bg='#98E6C5')
-entry_email = tk.Entry(janela_principal, width=40,  justify='center')
-entry_email.pack()
+entry_email = tk.Entry(janela_principal, width=44,  justify='center')
+entry_email.place(x=65, y=45)
 
 # Botão par a ação cadastrar
 botao_cadastrar = tk.Button(janela_principal, text='Cadastrar', command=cadastrar)
-botao_cadastrar.pack(pady='5')
+botao_cadastrar.place(x=45, y=80)
 
 # Botão para ação exibir_registros
 botao_registros = tk.Button(janela_principal, text='Registros', command=exibir_registros)
-botao_registros.pack(pady='5')
+botao_registros.place(x=130, y=80)
 
 # Botão para ação apagar_registro
 botao_apagar_registros = tk.Button(janela_principal, text='Apagar Registro', command=apagar_registro)
-botao_apagar_registros.pack(pady='5')
+botao_apagar_registros.place(x=215, y=80)
 
 janela_principal.mainloop()
