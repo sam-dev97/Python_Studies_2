@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 
 def salvar_registro(data, nome, idade, email):
-    # Abrindo o arquivo CSV que contem as informações de registro
     with open('registros1.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([data, nome, idade, email])
@@ -12,13 +11,11 @@ def salvar_registro(data, nome, idade, email):
     
     
 def exibir_registros():
-    # Abrindo o arquivo CSV que contem as informações de registro
     with open('registros1.csv', mode='r') as file:
         reader = csv.reader(file)
         registros = list(reader)
         
     if registros:
-        # Criando uma janela para exibir a lista de registros
         janela_rg = tk.Toplevel()
         janela_rg.title('Registros')
         janela_rg.geometry("600x250")
@@ -76,7 +73,6 @@ def pesquisa_nome(entry_pesquisa_nome):
         
     
     if registros_encontrados:
-        # Criando uma janela para exibir a lista de registros
         janela_rg = tk.Toplevel()
         janela_rg.title('Registros')
         janela_rg.geometry("600x250")
@@ -107,18 +103,15 @@ def pesquisa_nome(entry_pesquisa_nome):
     
     
 def apagar_registro():
-    # Abrindo o arquivo CSV que contém as informações de registro
     with open('registros1.csv', mode='r') as file:
         reader = csv.reader(file)
         registros = list(reader)
 
     if registros:
-        # Criando uma janela para exibir a lista de registros
         janela_delete = tk.Toplevel()
         janela_delete.title('Excluir Registros')
         janela_delete.geometry("600x250")
         
-        # Criando o Treeview
         tree = ttk.Treeview(janela_delete, columns=('data', 'nome', 'idade', 'email'), show='headings')
         
         tree.column('data', minwidth=0, width=90)
@@ -136,27 +129,22 @@ def apagar_registro():
         tree.pack()
 
         def confirmar_exclusao():
-            # Obtendo o registro selecionado
             item_selecionado = tree.selection()[0]
             
-            # Obtendo o índice numérico do registro selecionado
             indice_selecionado = int(tree.index(item_selecionado))
             
-            # Obtendo os valores do registro selecionado
             registro_selecionado = tree.item(item_selecionado)['values']
             
-            # Removendo o registro da lista
             registros.pop(indice_selecionado)
 
-            # Atualizando o Treeview
             tree.delete(item_selecionado)
 
-            # Sobrescrevendo o arquivo CSV com os registros atualizados
             with open('registros1.csv', mode='w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerows(registros)
 
-            janela_delete.destroy()  # Fecha a janela de seleção de registros
+            janela_delete.destroy()
+            
             messagebox.showinfo('Registro Removido', f'O registro {registro_selecionado} foi removido com sucesso!')
             
         botao_confirmar = tk.Button(janela_delete, text='Deletar registro selecionado', command=confirmar_exclusao)
