@@ -4,16 +4,12 @@ import funcoes_registro as ff
 from funcoes_registro import *
 from tkinter import messagebox, ttk
 
-# Criação da interface gráfica da janela principal
 janela_principal = tk.Tk()
 janela_principal.title('Sistema de Registro')
-# Setando o tamanho da janela principal
 janela_principal.geometry('350x200')
-# Setando uma cor para janela principal
 janela_principal.configure(background='#98E6C5')
 janela_principal.resizable(width=False, height=False)
 
-# Cores
 cor_label = "#98E6C5"
 
 # Label e Entry(text_field) para o nome
@@ -56,14 +52,16 @@ botao_registros.place(x=130, y=100)
 botao_apagar_registros = tk.Button(janela_principal, text='Apagar Registro', command=ff.apagar_registro)
 botao_apagar_registros.place(x=215, y=100)
 
-# Barra para pesquisa por nome
+# Label para pesquisa por nome
 label_pesquisa_nome = tk.Label(janela_principal, text="Pesquisa por nome")
 label_pesquisa_nome.place(x=45, y=140)
 label_pesquisa_nome.config(bg=cor_label)
 
+# Entry para pesquisa por nome
 entry_pesquisa_nome = tk.Entry(janela_principal, width=25)
 entry_pesquisa_nome.place(x=160, y=140)
 
+# Botão para pesquisa por nome
 botao_pesquisa_nome = tk.Button(janela_principal, text='Pesquisar', command=lambda: ff.pesquisa_nome(entry_pesquisa_nome))
 botao_pesquisa_nome.place(x=150, y=165)
 
